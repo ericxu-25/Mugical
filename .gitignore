@@ -1,1 +1,5 @@
 # Mugical .gitignore file 
+# ignore all temp vim files
+*.swp
+# ignore all log files
+*.log
