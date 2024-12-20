@@ -1,0 +1,3 @@
+[submodule "examples/pymugic"]
+	path = examples/pymugic
+	url = https://github.com/amiguet/pymugic.git

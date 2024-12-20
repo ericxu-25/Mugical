@@ -33,10 +33,10 @@ source ~/.bashrc
 
 # install/update Python
 echo "setting up Python..."
-pacman -Sy mingw-w64-x86_64-python3 --noconfirm
+pacman -Sy mingw-w64-ucrt-x86_64-python3 --noconfirm
 
 # install/update Godot
 echo "setting up Godot..."
-pacman -Sy mingw-w64-x86_64-godot --noconfirm
+pacman -Sy mingw-w64-ucrt-x86_64-godot --noconfirm
 
 echo "<<< Setup Complete >>>"
