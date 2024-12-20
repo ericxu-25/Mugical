@@ -1,6 +1,14 @@
 #!/usr/bin/env bash
 echo "Setting up environment for ${MSYSTEM}"
 CONFIG_DIR="${1:-$(realpath $(dirname "$0")/../.config)}"
+# add ssh-agent startup to the .bashrc
+# add the ssh key to the .bashrc
+if ! grep -Fxq 'eval "$(ssh-agent -s)"' ~/.bashrc ; then
+     echo  >> ~/.bashrc
+     echo '#startup of ssh-agent' >> ~/.bashrc
+     echo  'eval "$(ssh-agent -s)"' >> ~/.bashrc
+     echo 'find ~/.ssh/ | grep -v '\.pub' | grep id | xargs ssh-add' >> ~/.bashrc
+fi
 # install starship (cross-shell prompt)
 pacman -Sy mingw-w64-ucrt-x86_64-starship --noconfirm
 mkdir -p ~/.config && cp ${CONFIG_DIR}/starship.toml ~/.config
