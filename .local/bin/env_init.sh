@@ -4,6 +4,7 @@ CONFIG_DIR="${1:-$(realpath $(dirname "$0")/../.config)}"
 # install starship (cross-shell prompt)
 pacman -Sy mingw-w64-ucrt-x86_64-starship --noconfirm
 mkdir -p ~/.config && cp ${CONFIG_DIR}/starship.toml ~/.config
+# add starship init to the .bashrc
 if ! grep -Fxq 'eval "$(starship init bash)"' ~/.bashrc ; then
 	echo >> ~/.bashrc
 	echo '#Starship Initializer' >> ~/.bashrc
