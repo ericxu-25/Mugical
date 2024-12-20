@@ -30,10 +30,13 @@ if ! grep -Fxq '#Ultimate Vimrc' ~/.bashrc ; then
      echo 'alias vim="vim -u ~/.config/.vimrc"' >> ~/.bashrc
 fi
 source ~/.bashrc
-#
-# install/update relevant software (godot, python, pygame)
-#
 
 # install/update Python
-echo "setting up python..."
+echo "setting up Python..."
+pacman -Sy mingw-w64-x86_64-python3 --noconfirm
 
+# install/update Godot
+echo "setting up Godot..."
+pacman -Sy mingw-w64-x86_64-godot --noconfirm
+
+echo "<<< Setup Complete >>>"
