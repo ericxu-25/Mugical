@@ -14,26 +14,30 @@ EXAMPLES_DIR:=$(ROOT_DIR)examples
 help:
 	@ echo "===   Make Help   ==="
 	@ echo "command list"
-	@ echo "> setup_environment: downloads all packages with pacman"
-	@ echo ">        setup_slim: downloads required packages with pacman"
+	@ echo ">        setup_slim: downloads only required packages with pacman"
+	@ echo ">         setup_env: downloads all packages with pacman"
+	@ echo ">         setup_git: sets up local git configuration"
 	@ echo ">           example: run a script to start an example"
 	@ echo "unimplemented commands"
 	@ echo ">             godot: compile and run godot"
 	@ echo ">              work: startup our working production environment"
 	@ echo "=== End Make Help ==="
 
+# setup git ssh (interactive)
+setup_git: 
+	$(BIN_DIR)/git_setup.sh
 
 # initialize submodules
 submodules:
 	git submodule init
 	git submodule update
 
-setup_environment: submodules
-	# delegate to a bash script to setup our environment
+# delegate to a bash script to setup our environment
+setup_env: submodules
 	$(BIN_DIR)/env_init.sh $(CONFIG_DIR)
 
+# same as setup_env but skips over unecessary packages
 setup_slim: submodules
-	# delegate to a bash script to setup our environment
 	$(BIN_DIR)/env_init.sh $(CONFIG_DIR) -s
 
 example:
