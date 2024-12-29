@@ -24,11 +24,15 @@ pacman -Syu git make --noconfirm --needed;
 
 echo "[ENV_INIT] setting up ssh-agent"
 # add ssh-agent startup to the .bashrc
-if ! grep -Fxq 'eval "$(ssh-agent -s)"' ~/.bashrc ; then
-     echo  >> ~/.bashrc
-     echo '#startup of ssh-agent' >> ~/.bashrc
-     echo 'eval "$(ssh-agent -s)"' >> ~/.bashrc
-     echo 'find ~/.ssh/ | grep -v '\.pub' | grep id | xargs ssh-add' >> ~/.bashrc
+if ! grep -m 1 -Fq '#startup of ssh-agent' ~/.bashrc ; then
+    echo  >> ~/.bashrc
+    echo '#startup of ssh-agent (https://serverfault.com/a/978680)' >> ~/.bashrc
+    echo 'export SSH_AUTH_SOCK=~/.ssh/ssh-agent.sock' >> ~/.bashrc
+    echo 'ssh-add -l 2>/dev/null >/dev/null' >> ~/.bashrc
+    echo '[ $? -ge 2 ] && ssh-agent -a "$SSH_AUTH_SOCK" >/dev/null' >> ~/.bashrc
+    echo 'find ~/.ssh/ | grep -v '\.pub' | grep id | xargs ssh-add >/dev/null 2>/dev/null'\
+    >> ~/.bashrc
+    eval "$(cat ~/.bashrc | tail -n 5)"
 fi
 
 # setup The Ultimate vimrc (Basic version)
@@ -39,7 +43,6 @@ if ! grep -Fxq '#Ultimate Vimrc' ~/.bashrc ; then
      echo '#Ultimate Vimrc' >> ~/.bashrc
      echo 'alias vim="vim -u ~/.config/.vimrc"' >> ~/.bashrc
 fi
-source ~/.bashrc
 
 # install/update Python
 echo "[ENV_INIT] setting up Python..."
@@ -56,5 +59,4 @@ else
     # install additional command prompt tools
     pacman -Syu vim tmux tree --noconfirm --needed;
 fi
-
 echo "<<< [ENV_INIT] Complete >>>"
