@@ -1,28 +1,38 @@
 #!/usr/bin/env bash
-echo "Setting up environment for ${MSYSTEM}"
+echo "[ENV_INIT] Setting up environment for ${MSYSTEM}"
 CONFIG_DIR="${1:-$(realpath $(dirname "$0")/../.config)}"
-echo "setting up ssh-agent"
+SLIM_BUILD=f
+shift
+# flag parsing
+while test $# != 0
+do
+    case "$1" in
+    -s) SLIM_BUILD=t;;
+    *)  echo 'unknown parameter: '${1};;
+    esac
+    shift
+done
+
+if [[ ! ${SLIM_BUILD} = t ]]; then
+    echo "<< [ENV_INIT] ENVIRONMENT>>"
+else
+    echo "<< [ENV_INIT] SLIM ENVIRONMENT>>"
+fi
+echo "[ENV_INIT] installing essential tools"
+# update essential tools
+pacman -Syu git make --noconfirm --needed;
+
+echo "[ENV_INIT] setting up ssh-agent"
 # add ssh-agent startup to the .bashrc
 if ! grep -Fxq 'eval "$(ssh-agent -s)"' ~/.bashrc ; then
      echo  >> ~/.bashrc
      echo '#startup of ssh-agent' >> ~/.bashrc
-     echo  'eval "$(ssh-agent -s)"' >> ~/.bashrc
+     echo 'eval "$(ssh-agent -s)"' >> ~/.bashrc
      echo 'find ~/.ssh/ | grep -v '\.pub' | grep id | xargs ssh-add' >> ~/.bashrc
 fi
-# install starship (cross-shell prompt)
-echo "setting up starship"
-pacman -Sy mingw-w64-ucrt-x86_64-starship --noconfirm
-pacman -S mingw-w64-ucrt-x86_64-ttf-font-nerd --noconfirm
-mkdir -p ~/.config && cp ${CONFIG_DIR}/starship.toml ~/.config
-# add starship init to the .bashrc
-if ! grep -Fxq 'eval "$(starship init bash)"' ~/.bashrc ; then
-	echo >> ~/.bashrc
-	echo '#Starship Initializer' >> ~/.bashrc
-	echo 'eval "$(starship init bash)"' >> ~/.bashrc
-	echo 'export STARSHIP_CONFIG=~/.config/starship.toml' >> ~/.bashrc
-fi
-# install The Ultimate vimrc (Basic version)
-echo "setting up .vimrc"
+
+# setup The Ultimate vimrc (Basic version)
+echo "[ENV_INIT] setting up .vimrc"
 mkdir -p ~/.config && cp ${CONFIG_DIR}/.vimrc ~/.config
 if ! grep -Fxq '#Ultimate Vimrc' ~/.bashrc ; then
      echo  >> ~/.bashrc
@@ -32,11 +42,19 @@ fi
 source ~/.bashrc
 
 # install/update Python
-echo "setting up Python..."
-pacman -Sy mingw-w64-ucrt-x86_64-python3 --noconfirm
+echo "[ENV_INIT] setting up Python..."
+pacman -Syu mingw-w64-ucrt-x86_64-python3 --noconfirm --needed
 
 # install/update Godot
-echo "setting up Godot..."
-pacman -Sy mingw-w64-ucrt-x86_64-godot --noconfirm
+echo "[ENV_INIT] setting up Godot..."
+pacman -Syu mingw-w64-ucrt-x86_64-godot --noconfirm --needed
 
-echo "<<< Setup Complete >>>"
+if [[ ${SLIM_BUILD} = t ]]; then
+    echo '[ENV_INIT] slim build'
+else
+    echo '[ENV_INIT] installing additional tools'
+    # install additional command prompt tools
+    pacman -Syu vim tmux tree --noconfirm --needed;
+fi
+
+echo "<<< [ENV_INIT] Complete >>>"
