@@ -1,3 +1,6 @@
 [submodule "examples/pymugic"]
 	path = examples/pymugic
 	url = https://github.com/amiguet/pymugic.git
+[submodule "examples/mugic-pypong"]
+	path = examples/mugic-pypong
+	url = git@github.com:ericxu-25/mugic-pypong.git
