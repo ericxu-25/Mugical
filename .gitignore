@@ -3,3 +3,5 @@
 *.swp
 # ignore all log files
 *.log
+# ignore all files in the tmp folder
+tmp/
