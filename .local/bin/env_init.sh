@@ -24,8 +24,8 @@ pacman -Syu git make --noconfirm --needed;
 
 echo "[ENV_INIT] setting up ssh-agent"
 # add ssh-agent startup to the .bashrc
-if ! grep -m 1 -Fq '#startup of ssh-agent' ~/.bashrc ; then
-    echo  >> ~/.bashrc
+if ! grep -m 1 -Fq '#startup of ssh-agent' ~/.profile; then
+    echo  >> ~/.profile
     echo '#startup of ssh-agent (https://serverfault.com/a/978680)' >> ~/.bashrc
     echo 'export SSH_AUTH_SOCK=~/.ssh/ssh-agent.sock' >> ~/.bashrc
     echo 'ssh-add -l 2>/dev/null >/dev/null' >> ~/.bashrc

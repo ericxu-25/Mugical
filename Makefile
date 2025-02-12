@@ -1,7 +1,10 @@
 USERNAME:= $(git config --global user.name)
-ROOT_DIR := $(dir $(realpath $(lastword $(MAKEFILE_LIST))))
-BIN_DIR:= $(ROOT_DIR).local/bin
-CONFIG_DIR:= $(ROOT_DIR).local/.config
+# get root directory
+space:=$() $()
+_RAW_ROOT_DIR:=$(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
+ROOT_DIR:=$(subst $(space),\$(space),$(strip $(_RAW_ROOT_DIR)))
+BIN_DIR:=$(ROOT_DIR).local/bin
+CONFIG_DIR:=$(ROOT_DIR).local/.config
 EXAMPLES_DIR:=$(ROOT_DIR)examples
 
 .PHONY: help 
@@ -18,10 +21,8 @@ help:
 	@ echo ">         setup_env: downloads all packages with pacman"
 	@ echo ">         setup_git: sets up local git configuration"
 	@ echo ">           example: run a script to start an example"
-	@ echo "unimplemented commands"
-	@ echo ">             godot: compile and run godot"
-	@ echo ">              work: startup our working production environment"
 	@ echo "=== End Make Help ==="
+	@ echo "Root directory: " "$(ROOT_DIR) "
 
 # setup git ssh (interactive)
 setup_git: 
