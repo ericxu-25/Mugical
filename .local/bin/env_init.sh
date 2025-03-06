@@ -18,9 +18,6 @@ if [[ ! ${SLIM_BUILD} = t ]]; then
 else
     echo "<< [ENV_INIT] SLIM ENVIRONMENT>>"
 fi
-echo "[ENV_INIT] installing essential tools"
-# update essential tools
-pacman -Syu git make --noconfirm --needed;
 
 echo "[ENV_INIT] setting up ssh agent and ssh config"
 # add ssh-agent startup to the .bashrc
@@ -54,6 +51,19 @@ if ! grep -Fxq '#Ultimate Vimrc' ~/.bashrc ; then
      echo '#Ultimate Vimrc' >> ~/.bashrc
      echo 'alias vim="vim -u ~/.config/.vimrc"' >> ~/.bashrc
 fi
+
+# ask if they want to continue with installation
+read -p "Install packages? (Can take 20-30 minutes) Y/N: " -n 1 -r
+echo
+if [[ ! $REPLY =~ ^[Yy]$ ]]
+then
+    echo "[ENV_INIT] ending without installing packages"
+    return 1
+fi
+
+echo "[ENV_INIT] installing essential tools"
+# update essential tools
+pacman -Syu git make --noconfirm --needed;
 
 # install/update Python
 echo "[ENV_INIT] setting up Python..."
