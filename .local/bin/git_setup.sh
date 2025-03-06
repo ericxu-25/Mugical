@@ -35,3 +35,16 @@ if [[ $? == 111 ]]; then
     echo "git setup (with ssh) completed"
     ssh -T git@github.com
 fi;
+
+# add the key to ssh config
+touch ~/.ssh/config
+if ! grep -m 1 -Fq "#github profile $(git config --global user.name)" ~/.ssh/config; then
+    username=$(git config --global user.name)
+    echo  >> ~/.ssh/config
+    echo "#github profile ${username}" >> ~/.ssh/config
+    echo "Host github.com" >> ~/.ssh/config
+    echo "    HostName github.com" >> ~/.ssh/config
+    echo "    PreferredAuthentications publickey" >> ~/.ssh/config
+    echo "    IdentityFile ~/.ssh/id_ed25519-${username}" >> ~/.ssh/config
+fi
+

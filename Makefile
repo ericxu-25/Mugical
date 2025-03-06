@@ -3,9 +3,9 @@ USERNAME:= $(git config --global user.name)
 space:=$() $()
 _RAW_ROOT_DIR:=$(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
 ROOT_DIR:=$(subst $(space),\$(space),$(strip $(_RAW_ROOT_DIR)))
-BIN_DIR:=$(ROOT_DIR).local/bin
-CONFIG_DIR:=$(ROOT_DIR).local/.config
-EXAMPLES_DIR:=$(ROOT_DIR)examples
+BIN_DIR:=$(ROOT_DIR)/.local/bin
+CONFIG_DIR:=$(ROOT_DIR)/.local/.config
+EXAMPLES_DIR:=$(ROOT_DIR)/examples
 
 .PHONY: help 
 .PHONY: initialize_environment
