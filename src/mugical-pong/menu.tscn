@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://b13bbdpyg245k"]
 
-[ext_resource type="Script" path="res://ui.gd" id="1_1diw3"]
-[ext_resource type="Texture2D" uid="uid://vwfsr53b17h3" path="res://art/forest_bg.png" id="1_1txr6"]
-[ext_resource type="FontFile" uid="uid://jv4uq244xqv1" path="res://fonts/monogram.ttf" id="2_36a1q"]
+[ext_resource type="Script" path="res://menu.gd" id="1_mwqfq"]
+[ext_resource type="Texture2D" uid="uid://vwfsr53b17h3" path="res://art/forest_bg.png" id="2_se0vi"]
+[ext_resource type="FontFile" uid="uid://jv4uq244xqv1" path="res://fonts/monogram.ttf" id="3_mah6q"]
 
 [node name="Menu" type="Control"]
 layout_mode = 3
@@ -11,7 +11,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_1diw3")
+script = ExtResource("1_mwqfq")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 1
@@ -20,7 +20,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("1_1txr6")
+texture = ExtResource("2_se0vi")
 expand_mode = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
@@ -39,14 +39,14 @@ grow_vertical = 2
 
 [node name="StartButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("2_36a1q")
+theme_override_fonts/font = ExtResource("3_mah6q")
 theme_override_font_sizes/font_size = 30
 text = "Start"
 
 [node name="QuitButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 4
-theme_override_fonts/font = ExtResource("2_36a1q")
+theme_override_fonts/font = ExtResource("3_mah6q")
 theme_override_font_sizes/font_size = 30
 text = "Quit"
 
