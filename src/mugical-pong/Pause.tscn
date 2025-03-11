@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://ruluh28slr5d"]
 
-[ext_resource type="FontFile" uid="uid://jv4uq244xqv1" path="res://monogram.ttf" id="1_40lba"]
+[ext_resource type="FontFile" uid="uid://jv4uq244xqv1" path="res://fonts/monogram.ttf" id="1_40lba"]
 
 [node name="Pause" type="Control"]
 layout_mode = 3
