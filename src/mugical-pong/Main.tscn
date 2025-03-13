@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bv73ipd1fq2k1"]
+[gd_scene load_steps=11 format=3 uid="uid://bv73ipd1fq2k1"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_dg4wf"]
 [ext_resource type="Texture2D" uid="uid://yftdryhamufy" path="res://art/PongGameBoard.png" id="1_x0btl"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://e56017ttfwnf" path="res://paddle2.tscn" id="2_51kdo"]
 [ext_resource type="PackedScene" uid="uid://dtda3jbwbd0wv" path="res://ball.tscn" id="3_aiuqr"]
 [ext_resource type="FontFile" uid="uid://jv4uq244xqv1" path="res://fonts/monogram.ttf" id="3_rcgcc"]
+[ext_resource type="AudioStream" uid="uid://dqewerodlrl41" path="res://soundtrack-fantasy.mp3" id="7_8tvnd"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ijm12"]
 bg_color = Color(0.141176, 0.141176, 0.141176, 0.701961)
@@ -127,6 +128,10 @@ grow_vertical = 2
 theme_override_fonts/font = ExtResource("3_rcgcc")
 theme_override_font_sizes/font_size = 35
 text = "New Game"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_8tvnd")
+autoplay = true
 
 [connection signal="body_entered" from="leftBorder" to="." method="_on_left_border_body_entered"]
 [connection signal="body_entered" from="rightBorder" to="." method="_on_right_border_body_entered"]

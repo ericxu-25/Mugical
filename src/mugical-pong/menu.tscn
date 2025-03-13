@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://b13bbdpyg245k"]
+[gd_scene load_steps=5 format=3 uid="uid://b13bbdpyg245k"]
 
 [ext_resource type="Script" path="res://menu.gd" id="1_mwqfq"]
+[ext_resource type="AudioStream" uid="uid://nhtlma8mj3jf" path="res://menu-track.mp3" id="2_kbdid"]
 [ext_resource type="Texture2D" uid="uid://vwfsr53b17h3" path="res://art/forest_bg.png" id="2_se0vi"]
 [ext_resource type="FontFile" uid="uid://jv4uq244xqv1" path="res://fonts/monogram.ttf" id="3_mah6q"]
 
@@ -12,6 +13,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_mwqfq")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_kbdid")
+autoplay = true
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 1
