@@ -1,14 +1,23 @@
-[gd_scene load_steps=6 format=3 uid="uid://bv73ipd1fq2k1"]
+[gd_scene load_steps=10 format=3 uid="uid://bv73ipd1fq2k1"]
 
+[ext_resource type="Script" path="res://main.gd" id="1_dg4wf"]
 [ext_resource type="Texture2D" uid="uid://yftdryhamufy" path="res://art/PongGameBoard.png" id="1_x0btl"]
 [ext_resource type="PackedScene" uid="uid://ye4wrrlfiela" path="res://paddle.tscn" id="2_3enp6"]
 [ext_resource type="PackedScene" uid="uid://e56017ttfwnf" path="res://paddle2.tscn" id="2_51kdo"]
 [ext_resource type="PackedScene" uid="uid://dtda3jbwbd0wv" path="res://ball.tscn" id="3_aiuqr"]
+[ext_resource type="FontFile" uid="uid://jv4uq244xqv1" path="res://fonts/monogram.ttf" id="3_rcgcc"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ijm12"]
+bg_color = Color(0.141176, 0.141176, 0.141176, 0.701961)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k0fkh"]
 size = Vector2(1168, 20)
 
-[node name="Node" type="Node"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_20avc"]
+size = Vector2(28, 660)
+
+[node name="Main" type="Node"]
+script = ExtResource("1_dg4wf")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 anchors_preset = 15
@@ -19,16 +28,65 @@ grow_vertical = 2
 texture = ExtResource("1_x0btl")
 expand_mode = 1
 
+[node name="winnerLabel" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -43.5
+offset_top = -124.0
+offset_right = 43.5
+offset_bottom = -101.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("3_rcgcc")
+theme_override_font_sizes/font_size = 80
+theme_override_styles/normal = SubResource("StyleBoxFlat_ijm12")
+text = "Game Over"
+horizontal_alignment = 1
+
+[node name="rightPlayer_score" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 30.0
+offset_right = 70.0
+offset_bottom = 23.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("3_rcgcc")
+theme_override_font_sizes/font_size = 60
+text = "0"
+horizontal_alignment = 1
+
+[node name="leftPlayer_score" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -70.0
+offset_right = -30.0
+offset_bottom = 38.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("3_rcgcc")
+theme_override_font_sizes/font_size = 60
+text = "0"
+horizontal_alignment = 1
+
 [node name="paddle2" parent="." instance=ExtResource("2_51kdo")]
 position = Vector2(872, 226)
+collision_layer = 2
 
 [node name="paddle" parent="." instance=ExtResource("2_3enp6")]
-position = Vector2(223, 229)
+position = Vector2(226, 229)
+collision_layer = 2
 
 [node name="ball" parent="." instance=ExtResource("3_aiuqr")]
 position = Vector2(577, 328)
+collision_layer = 4
+collision_mask = 3
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_mask = 0
 
 [node name="upperBorder" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2(579, -10)
@@ -37,3 +95,39 @@ shape = SubResource("RectangleShape2D_k0fkh")
 [node name="lowerBorder" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2(575, 658)
 shape = SubResource("RectangleShape2D_k0fkh")
+
+[node name="leftBorder" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="leftBorder"]
+position = Vector2(202, 327)
+shape = SubResource("RectangleShape2D_20avc")
+
+[node name="rightBorder" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="rightBorder"]
+position = Vector2(951, 327)
+shape = SubResource("RectangleShape2D_20avc")
+
+[node name="newGameButton" type="Button" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -67.5
+offset_top = -18.5
+offset_right = 67.5
+offset_bottom = 18.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("3_rcgcc")
+theme_override_font_sizes/font_size = 35
+text = "New Game"
+
+[connection signal="body_entered" from="leftBorder" to="." method="_on_left_border_body_entered"]
+[connection signal="body_entered" from="rightBorder" to="." method="_on_right_border_body_entered"]
+[connection signal="pressed" from="newGameButton" to="." method="_on_new_game_button_pressed"]

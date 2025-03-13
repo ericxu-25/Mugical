@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 
-const SPEED = 50.0
+const SPEED = 10.0
 #const JUMP_VELOCITY = -400.0
 
 func _ready() -> void:
@@ -12,6 +12,9 @@ func _physics_process(delta: float) -> void:
 	if collision:
 		var normal := collision.get_normal()
 		velocity = velocity.bounce(normal)
+		
+func stop_ball() -> void:
+	velocity = Vector2(0,0)
 
 #func _physics_process(delta: float) -> void:
 	## Add the gravity.
