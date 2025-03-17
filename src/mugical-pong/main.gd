@@ -64,7 +64,7 @@ func _on_new_game_button_pressed() -> void:
 	leftPlayer_score = 0
 	rightPlayer_score = 0
 	ball.position = Vector2(577,328)
-	leftPaddle.position = Vector2(223,226)
-	rightPaddle.position = Vector2(872,226)
+	leftPaddle.position = Vector2(31,226)
+	rightPaddle.position = Vector2(1058,226)
 	update_score_labels()
 	ball.velocity = Vector2(-10,0)

@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://bv73ipd1fq2k1"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_dg4wf"]
-[ext_resource type="Texture2D" uid="uid://yftdryhamufy" path="res://art/PongGameBoard.png" id="1_x0btl"]
+[ext_resource type="Texture2D" uid="uid://gwso8cmcpgxd" path="res://art/gameboard_no_sidepanels.png" id="2_2qxaf"]
 [ext_resource type="PackedScene" uid="uid://ye4wrrlfiela" path="res://paddle.tscn" id="2_3enp6"]
 [ext_resource type="PackedScene" uid="uid://e56017ttfwnf" path="res://paddle2.tscn" id="2_51kdo"]
 [ext_resource type="PackedScene" uid="uid://dtda3jbwbd0wv" path="res://ball.tscn" id="3_aiuqr"]
@@ -26,7 +26,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("1_x0btl")
+texture = ExtResource("2_2qxaf")
 expand_mode = 1
 
 [node name="winnerLabel" type="Label" parent="."]
@@ -74,11 +74,11 @@ text = "0"
 horizontal_alignment = 1
 
 [node name="paddle2" parent="." instance=ExtResource("2_51kdo")]
-position = Vector2(872, 226)
+position = Vector2(1058, 226)
 collision_layer = 2
 
 [node name="paddle" parent="." instance=ExtResource("2_3enp6")]
-position = Vector2(226, 229)
+position = Vector2(31, 226)
 collision_layer = 2
 
 [node name="ball" parent="." instance=ExtResource("3_aiuqr")]
@@ -102,7 +102,7 @@ collision_layer = 0
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="leftBorder"]
-position = Vector2(202, 327)
+position = Vector2(-16, 318)
 shape = SubResource("RectangleShape2D_20avc")
 
 [node name="rightBorder" type="Area2D" parent="."]
@@ -110,7 +110,7 @@ collision_layer = 0
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="rightBorder"]
-position = Vector2(951, 327)
+position = Vector2(1167, 323)
 shape = SubResource("RectangleShape2D_20avc")
 
 [node name="newGameButton" type="Button" parent="."]
